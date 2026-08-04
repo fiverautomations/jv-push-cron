@@ -1,0 +1,14 @@
+name: Poll
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger poll endpoint
+        env:
+          POLL_URL: ${{ secrets.POLL_URL }}
+        run: curl -fsS --max-time 30 "$POLL_URL"
